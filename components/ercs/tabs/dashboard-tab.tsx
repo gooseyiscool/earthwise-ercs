@@ -156,7 +156,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
   const warningActions = scenario === "warning" ? 5 : scenario === "critical" ? 6 : 0
 
   return (
-    <div className="p-3 md:p-6 space-y-4 md:space-y-5">
+    <div className="p-6 space-y-5">
 
       {/* Optimisation banner */}
       <AnimatePresence>
@@ -184,7 +184,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
       </AnimatePresence>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
+      <div className="grid grid-cols-6 gap-3">
         {/* Grid status */}
         <motion.div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
           <div className="flex items-center justify-between mb-2"><span className="text-[10px] text-slate-500 uppercase tracking-wide">Grid Status</span><Zap className={`w-3.5 h-3.5 ${gridStatus.color === "emerald" ? "text-emerald-400" : gridStatus.color === "amber" ? "text-amber-400" : "text-red-400"}`} /></div>
@@ -197,7 +197,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
         </motion.div>
 
         {/* BESS Countdown */}
-        <motion.div className={`col-span-2 sm:col-span-2 rounded-xl border p-3 md:p-4 ${bessBg}`} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+        <motion.div className={`col-span-2 rounded-xl border p-4 ${bessBg}`} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
           <div className="flex items-center justify-between mb-1"><span className="text-[10px] text-slate-500 uppercase tracking-wide">BESS Safety-Critical Autonomy</span><Battery className={`w-3.5 h-3.5 ${bessColor}`} /></div>
           <div className={`text-3xl font-bold font-mono tracking-widest ${bessColor}`}>{formatBess(bessSeconds)}</div>
           <div className="flex items-center gap-3 mt-2">
@@ -248,10 +248,10 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
       </div>
 
       {/* Middle: controls + flow map + right column */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 md:gap-4">
+      <div className="grid grid-cols-12 gap-4">
 
         {/* Controls + safety health */}
-        <motion.div className="lg:col-span-2 space-y-3" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+        <motion.div className="col-span-2 space-y-3" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
           <div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-4">
             <span className="text-[10px] text-slate-500 uppercase tracking-wide block mb-3">Scenario</span>
             <div className="space-y-2">
@@ -283,7 +283,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
         </motion.div>
 
         {/* Flow map centrepiece */}
-        <motion.div className="lg:col-span-7" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+        <motion.div className="col-span-7" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
           <div className="bg-[#0d1419] border border-slate-700/50 rounded-xl overflow-hidden h-full">
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-700/50">
               <div className="flex items-center gap-2"><Activity className="w-4 h-4 text-cyan-400" /><span className="text-sm font-semibold text-slate-200">Sishen Operating System — Live Flow Map</span></div>
@@ -298,7 +298,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
         </motion.div>
 
         {/* Alerts + PTW log */}
-        <motion.div className="lg:col-span-3 space-y-3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
+        <motion.div className="col-span-3 space-y-3" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
           <div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-4">
             <div className="flex items-center justify-between mb-3"><span className="text-[10px] text-slate-500 uppercase tracking-wide">Active Alerts</span><AlertTriangle className={`w-3.5 h-3.5 ${scenario === "critical" ? "text-red-400" : scenario === "warning" ? "text-amber-400" : "text-slate-400"}`} /></div>
             <div className="space-y-2">
@@ -333,7 +333,7 @@ export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: Dashb
       {/* Active Operations */}
       <motion.div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
         <div className="flex items-center justify-between mb-3"><span className="text-[10px] text-slate-500 uppercase tracking-wide">Active Operations — Sishen Site</span><Factory className="w-3.5 h-3.5 text-cyan-400" /></div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 md:gap-3">
+        <div className="grid grid-cols-6 gap-3">
           {operations.map(op => (
             <motion.div key={op.id} className={`p-3 rounded-lg border transition-all ${getStatusBg(op.status)}`} animate={{ opacity: [0.85, 1, 0.85] }} transition={{ duration: 2.5, repeat: Infinity }}>
               <div className="flex items-center justify-between mb-1.5">

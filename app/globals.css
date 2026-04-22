@@ -118,12 +118,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
 }
-
-/* Mobile scrollbar utilities */
-.scrollbar-none {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}
