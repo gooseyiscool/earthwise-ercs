@@ -21,19 +21,26 @@ export default function ERCSPage() {
   const [scenario, setScenario] = useState<"stable" | "warning" | "critical">("stable")
 
   const alertCount = scenario === "critical" ? 3 : scenario === "warning" ? 2 : 0
-  const showFloatingBtn = (scenario === "warning" || scenario === "critical") && activeTab !== "optimise"
+  const showFloatingBtn =
+    (scenario === "warning" || scenario === "critical") && activeTab !== "optimise"
 
   const handleStartupComplete = () => setShowStartup(false)
 
-  // No auto-navigation — scenario runs naturally, user chooses when to optimise
   const handleScenarioChange = (s: "stable" | "warning" | "critical") => {
     setScenario(s)
+    // NO auto-navigation — scenario runs, user decides when to optimise
   }
 
   const renderTab = () => {
     switch (activeTab) {
       case "dashboard":
-        return <DashboardTab scenario={scenario} onScenarioChange={handleScenarioChange} onGoOptimise={() => setActiveTab("optimise")} />
+        return (
+          <DashboardTab
+            scenario={scenario}
+            onScenarioChange={handleScenarioChange}
+            onGoOptimise={() => setActiveTab("optimise")}
+          />
+        )
       case "simulator":
         return <SimulatorTab scenario={scenario} onScenarioChange={handleScenarioChange} />
       case "optimise":
@@ -51,7 +58,13 @@ export default function ERCSPage() {
       case "settings":
         return <SettingsTab />
       default:
-        return <DashboardTab scenario={scenario} onScenarioChange={handleScenarioChange} onGoOptimise={() => setActiveTab("optimise")} />
+        return (
+          <DashboardTab
+            scenario={scenario}
+            onScenarioChange={handleScenarioChange}
+            onGoOptimise={() => setActiveTab("optimise")}
+          />
+        )
     }
   }
 
@@ -88,7 +101,6 @@ export default function ERCSPage() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Floating Optimise button — visible on all tabs when not stable */}
             <AnimatePresence>
               {showFloatingBtn && (
                 <motion.button
@@ -97,10 +109,10 @@ export default function ERCSPage() {
                   exit={{ opacity: 0, scale: 0.8, y: 20 }}
                   transition={{ type: "spring", bounce: 0.3 }}
                   onClick={() => setActiveTab("optimise")}
-                  className={`fixed bottom-14 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border font-semibold text-sm transition-all ${
+                  className={`fixed bottom-14 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-xl shadow-lg border font-semibold text-sm ${
                     scenario === "critical"
-                      ? "bg-red-500/20 border-red-500/50 text-red-400 shadow-red-500/20"
-                      : "bg-amber-500/20 border-amber-500/50 text-amber-400 shadow-amber-500/20"
+                      ? "bg-red-500/20 border-red-500/50 text-red-400"
+                      : "bg-amber-500/20 border-amber-500/50 text-amber-400"
                   }`}
                 >
                   <motion.div
@@ -109,9 +121,7 @@ export default function ERCSPage() {
                   >
                     <AlertTriangle className="w-4 h-4" />
                   </motion.div>
-                  <span>
-                    {scenario === "critical" ? "Critical — Optimise Now" : "Warning — View Optimisation"}
-                  </span>
+                  {scenario === "critical" ? "Critical — Optimise Now" : "Warning — View Optimisation"}
                   <Sliders className="w-4 h-4 opacity-70" />
                 </motion.button>
               )}
@@ -122,16 +132,26 @@ export default function ERCSPage() {
             <div className="flex items-center justify-between text-xs">
               <div className="flex items-center gap-6">
                 <div className="flex items-center gap-2">
-                  <div className={`w-2 h-2 rounded-full ${
-                    scenario === "critical" ? "bg-red-500 animate-pulse" :
-                    scenario === "warning" ? "bg-amber-500" : "bg-emerald-500"
-                  }`} />
+                  <div
+                    className={`w-2 h-2 rounded-full ${
+                      scenario === "critical"
+                        ? "bg-red-500 animate-pulse"
+                        : scenario === "warning"
+                        ? "bg-amber-500"
+                        : "bg-emerald-500"
+                    }`}
+                  />
                   <span className="text-slate-500">
                     System Status:{" "}
-                    <span className={
-                      scenario === "critical" ? "text-red-400" :
-                      scenario === "warning" ? "text-amber-400" : "text-emerald-400"
-                    }>
+                    <span
+                      className={
+                        scenario === "critical"
+                          ? "text-red-400"
+                          : scenario === "warning"
+                          ? "text-amber-400"
+                          : "text-emerald-400"
+                      }
+                    >
                       {scenario.toUpperCase()}
                     </span>
                   </span>
@@ -153,4 +173,3 @@ export default function ERCSPage() {
     </div>
   )
 }
- 
