@@ -262,7 +262,7 @@ export function OptimiseTab({ scenario, onScenarioChange }: OptimiseTabProps) {
             All safety-critical loads are ring-fenced and secure. No optimisation actions are required at this time. This tab activates when the system enters Warning or Critical status.
           </p>
         </div>
-        <div className="grid grid-cols-3 gap-4 mt-4 w-full max-w-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mt-4 w-full max-w-lg">
           {[
             { label: "BESS Autonomy", value: "6.4 hrs", icon: <Battery className="w-4 h-4 text-emerald-400" /> },
             { label: "Grid Independence", value: "85%", icon: <Zap className="w-4 h-4 text-emerald-400" /> },
@@ -289,7 +289,7 @@ export function OptimiseTab({ scenario, onScenarioChange }: OptimiseTabProps) {
   const headerBg = isCritical ? "bg-red-500/10" : "bg-amber-500/10"
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-3 md:p-6 space-y-4 md:space-y-6">
 
       {/* Header banner */}
       <motion.div

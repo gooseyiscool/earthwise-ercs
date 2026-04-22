@@ -71,7 +71,7 @@ export function SettingsTab() {
   )
 
   return (
-    <div className="p-6 space-y-5">
+    <div className="p-3 md:p-6 space-y-4 md:space-y-5">
 
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -87,10 +87,10 @@ export function SettingsTab() {
         </button>
       </div>
 
-      <div className="grid grid-cols-12 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
         {/* Left: Profile + System status */}
-        <div className="col-span-4 space-y-4">
+        <div className="lg:col-span-4 space-y-4">
 
           {/* User Profile */}
           <motion.div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-5"
@@ -173,7 +173,7 @@ export function SettingsTab() {
         </div>
 
         {/* Middle: Notifications + Display */}
-        <div className="col-span-4 space-y-4">
+        <div className="lg:col-span-4 space-y-4">
 
           {/* Notifications */}
           <motion.div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-5"
@@ -225,7 +225,7 @@ export function SettingsTab() {
           <motion.div className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-4"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
             <div className="flex items-center gap-2 mb-3"><HardDrive className="w-3.5 h-3.5 text-slate-500" /><span className="text-xs text-slate-500 font-semibold">System Information</span></div>
-            <div className="grid grid-cols-3 gap-3 text-center">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
               {[["ERCS Version", "2.4.1"], ["Build Date", "2024.03.20"], ["Environment", "Production"]].map(([k, v]) => (
                 <div key={k} className="bg-slate-800/40 rounded-lg p-2.5">
                   <p className="text-[10px] text-slate-500 mb-1">{k}</p>
@@ -237,7 +237,7 @@ export function SettingsTab() {
         </div>
 
         {/* Right: Thresholds */}
-        <div className="col-span-4">
+        <div className="lg:col-span-4">
           <motion.div className="bg-[#0d1419] border border-slate-700/50 rounded-xl p-5 h-full"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <div className="flex items-center gap-2 mb-2"><AlertTriangle className="w-4 h-4 text-cyan-400" /><h3 className="text-sm font-semibold text-slate-200">Alert Thresholds</h3></div>

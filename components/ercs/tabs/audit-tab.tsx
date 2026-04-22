@@ -107,7 +107,7 @@ export function AuditTab() {
   })
 
   return (
-    <div className="p-6 space-y-5">
+    <div className="p-3 md:p-6 space-y-4 md:space-y-5">
 
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -166,10 +166,10 @@ export function AuditTab() {
 
       {/* Log */}
       <div className="bg-[#0d1419] border border-slate-700/50 rounded-xl overflow-hidden">
-        <div className="grid grid-cols-12 gap-4 px-5 py-2.5 border-b border-slate-700/50 text-[10px] text-slate-500 uppercase tracking-wide">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 px-5 py-2.5 border-b border-slate-700/50 text-[10px] text-slate-500 uppercase tracking-wide">
           <span className="col-span-1">Severity</span>
           <span className="col-span-2">Timestamp</span>
-          <span className="col-span-3">Event</span>
+          <span className="lg:col-span-3">Event</span>
           <span className="col-span-2">User / Role</span>
           <span className="col-span-2">Category</span>
           <span className="col-span-2">MHSA Ref</span>
@@ -184,7 +184,7 @@ export function AuditTab() {
             return (
               <motion.div key={entry.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: i * 0.03 }}>
                 <button onClick={() => setExpanded(isOpen ? null : entry.id)}
-                  className={`w-full grid grid-cols-12 gap-4 px-5 py-3.5 text-left hover:bg-slate-800/30 transition-colors items-center ${isOpen ? "bg-slate-800/20" : ""}`}>
+                  className={`w-full grid grid-cols-1 lg:grid-cols-12 gap-4 px-5 py-3.5 text-left hover:bg-slate-800/30 transition-colors items-center ${isOpen ? "bg-slate-800/20" : ""}`}>
 
                   {/* Severity dot */}
                   <div className="col-span-1 flex items-center gap-2">
@@ -200,7 +200,7 @@ export function AuditTab() {
                   </div>
 
                   {/* Event */}
-                  <div className="col-span-3">
+                  <div className="lg:col-span-3">
                     <span className={`text-sm font-medium ${sev.color}`}>{entry.event}</span>
                   </div>
 
