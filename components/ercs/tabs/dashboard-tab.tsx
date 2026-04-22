@@ -19,12 +19,15 @@ import {
   Flame,
   Waves,
   CheckCircle,
+  Sliders,
+  ArrowRight,
 } from "lucide-react"
 import { FlowMap } from "../flow-map"
 
 interface DashboardTabProps {
   scenario: "stable" | "warning" | "critical"
   onScenarioChange: (scenario: "stable" | "warning" | "critical") => void
+  onGoOptimise: () => void
 }
 
 interface Operation {
@@ -43,7 +46,7 @@ interface SystemHealth {
   icon: React.ReactNode
 }
 
-export function DashboardTab({ scenario, onScenarioChange }: DashboardTabProps) {
+export function DashboardTab({ scenario, onScenarioChange, onGoOptimise }: DashboardTabProps) {
   const [showSafetyOverlay, setShowSafetyOverlay] = useState(false)
   const [operations, setOperations] = useState<Operation[]>([
     { id: "crushing", name: "Primary Crushing", icon: <Factory className="w-4 h-4" />, baseLoad: 85, status: "safe" },
@@ -168,8 +171,56 @@ export function DashboardTab({ scenario, onScenarioChange }: DashboardTabProps) 
     return "bg-emerald-500/20 border-emerald-500/30"
   }
 
+  const warningActions = scenario === "warning" ? 5 : scenario === "critical" ? 6 : 0
+
   return (
     <div className="p-6 space-y-6">
+
+      {/* Optimisation suggestion banner — appears when warning or critical */}
+      {(scenario === "warning" || scenario === "critical") && (
+        <motion.div
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -12 }}
+          className={`rounded-xl border p-4 flex items-center justify-between gap-4 flex-wrap ${
+            scenario === "critical"
+              ? "bg-red-500/10 border-red-500/40"
+              : "bg-amber-500/10 border-amber-500/40"
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 ${
+              scenario === "critical" ? "bg-red-500/20" : "bg-amber-500/20"
+            }`}>
+              <Sliders className={`w-5 h-5 ${scenario === "critical" ? "text-red-400" : "text-amber-400"}`} />
+            </div>
+            <div>
+              <p className={`text-sm font-semibold ${scenario === "critical" ? "text-red-400" : "text-amber-400"}`}>
+                {scenario === "critical"
+                  ? `${warningActions} critical optimisation actions available — immediate action recommended`
+                  : `${warningActions} preventive optimisation actions available — act now to avoid escalation`}
+              </p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {scenario === "critical"
+                  ? "Ring-fence failover, load reduction, and PTW controlled shutdown ready to execute. Scenario continues running — optimise when ready."
+                  : "Solar priority mode, BESS pre-charge, and load deferral available. Scenario continues running — optimise when ready."}
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={onGoOptimise}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold border flex-shrink-0 transition-all ${
+              scenario === "critical"
+                ? "bg-red-500/20 border-red-500/50 text-red-400 hover:bg-red-500/30"
+                : "bg-amber-500/20 border-amber-500/50 text-amber-400 hover:bg-amber-500/30"
+            }`}
+          >
+            Go to Optimise
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
+      )}
+
       {/* Top row - Status cards */}
       <div className="grid grid-cols-4 gap-4">
         {/* Grid Status */}
